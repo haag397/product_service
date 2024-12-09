@@ -5,7 +5,7 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, Spec
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('user.urls')),  
-    path('', include('product.urls')), 
+    # path('', include('product.urls')), 
     #* Schema generation 
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     #* Swagger UI

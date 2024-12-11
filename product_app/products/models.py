@@ -8,28 +8,20 @@ class Product(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    # image = models.ImageField(upload_to='products/', blank=True, null=True)
     image = models.ImageField(upload_to='products/') 
     def __str__(self):
         return self.name
 
 class Invoice(models.Model):
     id = models.UUIDField(default=uuid4, unique=True, primary_key=True, editable=False)
-    user = models.ForeignKey('User', on_delete=models.CASCADE, related_name='invoices')
-    products = models.ManyToManyField('Product', through='InvoiceProduct')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='invoices')
+    products = models.ManyToManyField(Product,  related_name='invoices')
     created_at = models.DateTimeField(auto_now_add=True)
     total_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    products = models.ManyToManyField(Product, related_name='invoices')
 
     def __str__(self):
         return f"Invoice {self.id} for {self.user.email}"
-
-# Through model for Invoice and Product relationship
-# class InvoiceProduct(models.Model):
-
-#     invoice = models.ForeignKey('Invoice', on_delete=models.CASCADE)
-#     product = models.ForeignKey('Product', on_delete=models.CASCADE)
-#     quantity = models.PositiveIntegerField(default=1)
-    
     
 class Transaction(models.Model):
     id = models.UUIDField(default=uuid4, unique=True, primary_key=True, editable=False)

@@ -25,11 +25,6 @@ class CustomUserManager(BaseUserManager):
             raise ValueError("Superuser must have is_superuser=True.")
 
         return self.create_user(email, password, **extra_fields)
-
-class Role(models.TextChoices):
-    SUPERUSER = 'SU', 'Superuser'
-    ADMIN = 'AD', 'Admin'
-    USER = 'US', 'User'
     
     
 class User(AbstractUser):
@@ -49,6 +44,3 @@ class User(AbstractUser):
     def __str__(self):
         return self.email
     
-    @property
-    def is_superuser_role(self):
-        return self.role == Role.SUPERUSER

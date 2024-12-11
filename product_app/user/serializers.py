@@ -6,7 +6,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['email', 'password', 'first_name', 'last_name', 'role']
+        fields = ['email', 'password', 'first_name', 'last_name']
 
     def create(self, validated_data):
         user = User.objects.create_user(
@@ -14,13 +14,13 @@ class RegisterSerializer(serializers.ModelSerializer):
             password=validated_data['password'],
             first_name=validated_data.get('first_name', ''),
             last_name=validated_data.get('last_name', ''),
-            role=validated_data.get('role', 'US')  # * Default to "User" role
+            # role=validated_data.get('role', 'US')  # * Default to "User" role
         )
         return user
 
 
-class UserProfileSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['email', 'first_name', 'last_name', 'role']
-        read_only_fields = ['email', 'role']  # Make these fields read-only
+        fields = ['id','email', 'first_name', 'last_name']
+        read_only_fields = ['id']  # Make these fields read-only

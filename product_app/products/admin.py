@@ -1,3 +1,7 @@
-from django.contrib import admin
+# from django.contrib import admin
+# from .models import Product, Invoice, InvoiceProduct, Transaction
 
-# Register your models here.
+# admin.site.register(Product)
+# admin.site.register(Invoice)
+# admin.site.register(InvoiceProduct)
+# admin.site.register(Transaction)

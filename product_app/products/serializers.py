@@ -14,6 +14,9 @@ class InvoiceSerializer(serializers.ModelSerializer):
         fields = ['id', 'user', 'created_at', 'total_amount', 'products']
 
 class TransactionSerializer(serializers.ModelSerializer):
+
+    invoice = serializers.PrimaryKeyRelatedField(queryset=Invoice.objects.all())
+
     class Meta:
         model = Transaction
         fields = ['id', 'user', 'invoice', 'amount', 'transaction_date', 'status']

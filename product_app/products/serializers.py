@@ -7,11 +7,14 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'description', 'price', 'image']
 
 class InvoiceSerializer(serializers.ModelSerializer):
-    products = ProductSerializer(many=True)
-
+    products = serializers.PrimaryKeyRelatedField(
+        many=True,
+        queryset=Product.objects.all()
+    )
     class Meta:
         model = Invoice
-        fields = ['id', 'user', 'created_at', 'total_amount', 'products']
+        fields = ['id','created_at', 'total_amount', 'products']
+
 
 class TransactionSerializer(serializers.ModelSerializer):
 
@@ -19,4 +22,9 @@ class TransactionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Transaction
-        fields = ['id', 'user', 'invoice', 'amount', 'transaction_date', 'status']
+        fields = ['id', 'invoice', 'amount', 'transaction_date', 'status']
+    
+    def create(self, validated_data):
+        # Automatically set the user based on the request
+        user = self.context['request'].user
+        return Transaction.objects.create(user=user, **validated_data)

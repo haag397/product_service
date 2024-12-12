@@ -15,10 +15,9 @@ class Product(models.Model):
 class Invoice(models.Model):
     id = models.UUIDField(default=uuid4, unique=True, primary_key=True, editable=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='invoices')
-    products = models.ManyToManyField(Product,  related_name='invoices')
+    products = models.ManyToManyField(Product, related_name='invoices')
     created_at = models.DateTimeField(auto_now_add=True)
     total_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
-    products = models.ManyToManyField(Product, related_name='invoices')
 
     def __str__(self):
         return f"Invoice {self.id} for {self.user.email}"
@@ -38,5 +37,3 @@ class Transaction(models.Model):
     def __str__(self):
         return f"Transaction {self.id} for Invoice #{self.invoice.id}"
     
-    # def __str__(self):
-        # return f"Transaction {self.transaction_id} - {self.status}"

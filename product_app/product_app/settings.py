@@ -97,7 +97,7 @@ AUTH_USER_MODEL = 'user.User'
 
 # * JWT settings
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=25),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
     'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,
@@ -125,11 +125,11 @@ def read_secret(secret_name):
     
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
-AWS_ACCESS_KEY_ID = 'your-access-key'
-AWS_SECRET_ACCESS_KEY = 'your-secret-key'
-AWS_STORAGE_BUCKET_NAME = 'your-bucket-name'
-AWS_S3_ENDPOINT_URL = 'https://your-minio-url'
-AWS_S3_CUSTOM_DOMAIN = f'{AWS_S3_ENDPOINT_URL}/{AWS_STORAGE_BUCKET_NAME}'
+AWS_ACCESS_KEY_ID = 't8Fo4x32w3E7zxWwqTdo'
+AWS_SECRET_ACCESS_KEY = 'q1r0UJ5PnGdbamOszZn7RWQZlYHoMMpKmxhHDtrS'
+AWS_STORAGE_BUCKET_NAME = 'test'
+AWS_S3_ENDPOINT_URL = 'http://192.168.54.79:9000/'
+AWS_S3_CUSTOM_DOMAIN = None
 AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400',
 }
